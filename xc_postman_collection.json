@@ -1,0 +1,2639 @@
+{
+	"info": {
+		"_postman_id": "58851c25-72a2-40de-830e-4a1d8dc1c846",
+		"name": "Volterra Collection - v0.4",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "AWS Site",
+			"item": [
+				{
+					"name": "Create Site AWS",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"name\": \"aws-{{site-name}}\",\n    \"namespace\": null,\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": \"Created by {{name}} using API\",\n    \"disable\": null\n  },\n  \"spec\": {\n    \"vpc\": {\n      \"new_vpc\": {\n        \"name_tag\": \"volterra-test-vpc-api\",\n        \"primary_ipv4\": \"10.0.0.0/16\",\n        \"allocate_ipv6\": null\n      }\n    },\n    \"ingress_egress_gw\": {\n      \"az_nodes\": [\n        {\n          \"aws_az_name\": \"eu-west-2a\",\n          \"reserved_inside_subnet\": {},\n          \"workload_subnet\": {\n            \"subnet_param\": {\n              \"ipv4\": \"10.0.0.0/24\",\n              \"ipv6\": null\n            }\n          },\n          \"outside_subnet\": {\n            \"subnet_param\": {\n              \"ipv4\": \"10.0.99.0/24\",\n              \"ipv6\": null\n            }\n          },\n          \"disk_size\": null\n        }\n      ],\n      \"no_network_policy\": {},\n      \"no_forward_proxy\": {},\n      \"aws_certified_hw\": \"aws-byol-multi-nic-voltmesh\",\n      \"no_inside_static_routes\": {},\n      \"no_outside_static_routes\": {},\n      \"no_global_network\": {},\n      \"allowed_vip_port\": {\n        \"use_http_https_port\": {}\n      },\n      \"allowed_vip_port_sli\": {\n        \"use_http_https_port\": {}\n      }\n    },\n    \"aws_cred\": {\n      \"tenant\": null,\n      \"namespace\": \"system\",\n      \"name\": \"aws-creds\"\n    },\n    \"instance_type\": \"t3.xlarge\",\n    \"disk_size\": null,\n    \"aws_region\": \"eu-west-2\",\n    \"ssh_key\": null,\n    \"address\": null,\n    \"coordinates\": null,\n    \"logs_streaming_disabled\": {},\n    \"sw\": {\n      \"default_sw_version\": {}\n    },\n    \"os\": {\n      \"default_os_version\": {}\n    },\n    \"no_worker_nodes\": {}\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/system/aws_vpc_sites",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"system",
+								"aws_vpc_sites"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Apply Site AWS",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"action\": \"APPLY\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/terraform/namespaces/system/terraform/aws_vpc_site/aws-{{site-name}}/run",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"terraform",
+								"namespaces",
+								"system",
+								"terraform",
+								"aws_vpc_site",
+								"aws-{{site-name}}",
+								"run"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Apply Site AWS Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/system/terraform_parameters/aws_vpc_site/aws-{{site-name}}/status",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"system",
+								"terraform_parameters",
+								"aws_vpc_site",
+								"aws-{{site-name}}",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Site AWS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/system/aws_vpc_sites/aws-{{site-name}}",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"system",
+								"aws_vpc_sites",
+								"aws-{{site-name}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Destroy Site AWS",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"action\": \"DESTROY\",\n  \"namespace\": \"system\",\n  \"site_kind\": \"aws_vpc_site\",\n  \"site_name\": \"aws-{{site-name}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/terraform/namespaces/system/terraform/aws_vpc_site/aws-{{site-name}}/run",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"terraform",
+								"namespaces",
+								"system",
+								"terraform",
+								"aws_vpc_site",
+								"aws-{{site-name}}",
+								"run"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DOES NOT WORK.  ForceDelete Site AWS",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/terraform/namespaces/system/terraform/aws_vpc_site/aws-{{site-name}}/force-delete",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"terraform",
+								"namespaces",
+								"system",
+								"terraform",
+								"aws_vpc_site",
+								"aws-{{site-name}}",
+								"force-delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Site AWS",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"namespace\": \"system\",\n  \"name\": \"aws-{{site-name}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/system/aws_vpc_sites/aws-{{site-name}}",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"system",
+								"aws_vpc_sites",
+								"aws-{{site-name}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Azure Site",
+			"item": [
+				{
+					"name": "Create Site Azure",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"name\": \"azure-{{site-name}}\",\n    \"namespace\": null,\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": \"Created by {{name}} using API\",\n    \"disable\": null\n  },\n  \"spec\": {\n    \"resource_group\": \"volterra-test-rg-api\",\n    \"azure_region\": \"uksouth\",\n    \"vnet\": {\n      \"new_vnet\": {\n        \"autogenerate\": {},\n        \"primary_ipv4\": \"10.0.0.0/16\"\n      }\n    },\n    \"ingress_egress_gw\": {\n      \"az_nodes\": [\n        {\n          \"azure_az\": \"1\",\n          \"inside_subnet\": {\n            \"subnet_param\": {\n              \"ipv4\": \"10.0.0.0/24\",\n              \"ipv6\": null\n            }\n          },\n          \"disk_size\": null,\n          \"outside_subnet\": {\n            \"subnet_param\": {\n              \"ipv4\": \"10.0.99.0/24\",\n              \"ipv6\": null\n            }\n          }\n        }\n      ],\n      \"no_network_policy\": {},\n      \"no_forward_proxy\": {},\n      \"azure_certified_hw\": \"azure-byol-multi-nic-voltmesh\",\n      \"no_inside_static_routes\": {},\n      \"no_outside_static_routes\": {},\n      \"no_global_network\": {}\n    },\n    \"azure_cred\": {\n      \"tenant\": null,\n      \"namespace\": \"system\",\n      \"name\": \"azure-creds\"\n    },\n    \"machine_type\": \"Standard_D3_v2\",\n    \"disk_size\": null,\n    \"ssh_key\": null,\n    \"address\": null,\n    \"coordinates\": null,\n    \"logs_streaming_disabled\": {},\n    \"sw\": {\n      \"default_sw_version\": {}\n    },\n    \"os\": {\n      \"default_os_version\": {}\n    },\n    \"no_worker_nodes\": {}\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/system/azure_vnet_sites",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"system",
+								"azure_vnet_sites"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Apply Site Azure",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"action\": \"APPLY\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/terraform/namespaces/system/terraform/azure_vnet_site/azure-{{site-name}}/run",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"terraform",
+								"namespaces",
+								"system",
+								"terraform",
+								"azure_vnet_site",
+								"azure-{{site-name}}",
+								"run"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Apply Site Azure Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/system/terraform_parameters/azure_vnet_site/azure-{{site-name}}/status",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"system",
+								"terraform_parameters",
+								"azure_vnet_site",
+								"azure-{{site-name}}",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Site Azure",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/system/azure_vnet_sites/azure-{{site-name}}",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"system",
+								"azure_vnet_sites",
+								"azure-{{site-name}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Destroy Site Azure",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"action\": \"DESTROY\",\n  \"namespace\": \"system\",\n  \"site_kind\": \"azure_vnet_site\",\n  \"site_name\": \"azure-{{site-name}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/terraform/namespaces/system/terraform/azure_vnet_site/azure-{{site-name}}/run",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"terraform",
+								"namespaces",
+								"system",
+								"terraform",
+								"azure_vnet_site",
+								"azure-{{site-name}}",
+								"run"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Site Azure",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"namespace\": \"system\",\n  \"name\": \"aws-{{site-name}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/system/azure_vnet_sites/azure-{{site-name}}",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"system",
+								"azure_vnet_sites",
+								"azure-{{site-name}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GCP Site",
+			"item": [
+				{
+					"name": "Create Site GCP",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"name\": \"gcp-{{site-name}}\",\n    \"namespace\": null,\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": \"Created by {{name}} using API\",\n    \"disable\": null\n  },\n  \"spec\": {\n    \"gcp_region\": \"europe-west2\",\n    \"ingress_egress_gw\": {\n      \"gcp_certified_hw\": \"gcp-byol-multi-nic-voltmesh\",\n      \"gcp_zone_names\": [\n        \"europe-west2-a\"\n      ],\n      \"node_number\": 1,\n      \"inside_network\": {\n        \"new_network_autogenerate\": {\n          \"autogenerate\": null\n        }\n      },\n      \"inside_subnet\": {\n        \"new_subnet\": {\n          \"subnet_name\": \"volterra_inside_api\",\n          \"primary_ipv4\": \"10.0.0.0/24\"\n        }\n      },\n      \"outside_network\": {\n        \"new_network_autogenerate\": {\n          \"autogenerate\": null\n        }\n      },\n      \"outside_subnet\": {\n        \"new_subnet\": {\n          \"subnet_name\": \"volterra_outside_api\",\n          \"primary_ipv4\": \"10.0.99.0/24\"\n        }\n      },\n      \"no_network_policy\": {},\n      \"no_forward_proxy\": {},\n      \"no_global_network\": {},\n      \"no_inside_static_routes\": {},\n      \"no_outside_static_routes\": {}\n    },\n    \"cloud_credentials\": {\n      \"tenant\": null,\n      \"namespace\": \"system\",\n      \"name\": \"gcp-creds\"\n    },\n    \"instance_type\": \"n1-standard-4\",\n    \"nodes_per_az\": 0,\n    \"disk_size\": null,\n    \"ssh_key\": null,\n    \"address\": null,\n    \"coordinates\": null,\n    \"logs_streaming_disabled\": {},\n    \"sw\": {\n      \"default_sw_version\": {}\n    },\n    \"os\": {\n      \"default_os_version\": {}\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/system/gcp_vpc_sites",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"system",
+								"gcp_vpc_sites"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Apply Site GCP",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"action\": \"APPLY\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/terraform/namespaces/system/terraform/gcp_vpc_site/gcp-{{site-name}}/run",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"terraform",
+								"namespaces",
+								"system",
+								"terraform",
+								"gcp_vpc_site",
+								"gcp-{{site-name}}",
+								"run"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Apply Site GCP Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/system/terraform_parameters/gcp_vpc_site/gcp-{{site-name}}/status",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"system",
+								"terraform_parameters",
+								"gcp_vpc_site",
+								"gcp-{{site-name}}",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Site GCP",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/system/gcp_vpc_sites/gcp-{{site-name}}",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"system",
+								"gcp_vpc_sites",
+								"gcp-{{site-name}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Destroy Site GCP",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"action\": \"DESTROY\",\n  \"namespace\": \"system\",\n  \"site_kind\": \"aws_vpc_site\",\n  \"site_name\": \"aws-{{site-name}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/terraform/namespaces/system/terraform/gcp_vpc_site/gcp-{{site-name}}/run",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"terraform",
+								"namespaces",
+								"system",
+								"terraform",
+								"gcp_vpc_site",
+								"gcp-{{site-name}}",
+								"run"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Site GCP",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"namespace\": \"system\",\n  \"name\": \"aws-{{site-name}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/system/gcp_vpc_sites/gcp-{{site-name}}",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"system",
+								"gcp_vpc_sites",
+								"gcp-{{site-name}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Publish / Modify App & WAF",
+			"item": [
+				{
+					"name": "Create Origin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"name\": \"gcp-nginx-api\",\n    \"namespace\": null,\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": \"Test origin created by {{name}} using API\",\n    \"disable\": null\n  },\n  \"spec\": {\n    \"origin_servers\": [\n      {\n        \"labels\": {},\n        \"private_ip\": {\n          \"ip\": \"10.0.0.3\",\n          \"site_locator\": {\n            \"site\": {\n              \"tenant\": null,\n              \"namespace\": \"system\",\n              \"name\": \"gcp-{{site-name}}\"\n            }\n          },\n          \"outside_network\": {}\n        }\n      }\n    ],\n    \"no_tls\": {},\n    \"port\": \"80\",\n    \"same_as_endpoint_port\": {},\n    \"healthcheck\": null,\n    \"loadbalancer_algorithm\": \"LB_OVERRIDE\",\n    \"endpoint_selection\": \"LOCAL_PREFERRED\",\n    \"advanced_options\": null\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/origin_pools",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"origin_pools"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Origin",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/origin_pools/gcp-nginx-api",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"origin_pools",
+								"gcp-nginx-api"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Load-Balancer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"name\": \"gcp-nginx-api\",\n    \"namespace\": null,\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": \"Test LB Created by {{name}} using API\",\n    \"disable\": null\n  },\n  \"spec\": {\n    \"domains\": [\n      \"nginx.api.internal\"\n    ],\n    \"http\": {\n      \"dns_volterra_managed\": null\n    },\n    \"advertise_custom\": {\n      \"advertise_where\": [\n        {\n          \"site\": {\n            \"network\": \"SITE_NETWORK_INSIDE\",\n            \"site\": {\n              \"tenant\": null,\n              \"namespace\": \"system\",\n                \"name\": \"aws-{{site-name}}\"\n              },\n              \"ip\": null\n            },\n            \"use_default_port\": {}\n          }\n        ]\n      },\n      \"default_route_pools\": [\n        {\n          \"pool\": {\n            \"tenant\": null,\n            \"namespace\": \"{{app-namespace}}\",\n            \"name\": \"gcp-nginx-api\"\n          },\n          \"weight\": 1,\n          \"endpoint_subsets\": {}\n        }\n      ],\n      \"routes\": null,\n      \"cors_policy\": null,\n      \"disable_waf\": {},\n      \"add_location\": null,\n      \"no_challenge\": {},\n      \"more_option\": null,\n      \"user_identification\": null,\n      \"disable_rate_limit\": {},\n      \"malicious_user_mitigation\": null,\n      \"waf_exclusion_rules\": null,\n      \"blocked_clients\": null,\n      \"trusted_clients\": null,\n      \"ddos_mitigation_rules\": null,\n      \"service_policies_from_namespace\": {},\n      \"round_robin\": {},\n      \"multi_lb_app\": {}\n    }\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/http_loadbalancers",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"http_loadbalancers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Load-Balancer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/http_loadbalancers/gcp-nginx-api",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"http_loadbalancers",
+								"gcp-nginx-api"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create WAF",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"name\": \"blocking-waf-api\",\n    \"namespace\": \"shared\",\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": \"Blocking WAF created by {{name}} using API\",\n    \"disable\": null\n  },\n  \"spec\": {\n    \"blocking\": {},\n    \"detection_settings\": {\n      \"signature_selection_setting\": {\n        \"default_attack_type_settings\": {},\n        \"high_medium_accuracy_signatures\": {}\n      },\n      \"enable_suppression\": {},\n      \"enable_threat_campaigns\": {},\n      \"default_violation_settings\": {}\n    },\n    \"default_bot_setting\": {},\n    \"allow_all_response_codes\": {},\n    \"default_anonymization\": {},\n    \"use_default_blocking_page\": {}\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/shared/app_firewalls",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"shared",
+								"app_firewalls"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify WAF",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/shared/app_firewalls/blocking-waf-api",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"shared",
+								"app_firewalls",
+								"blocking-waf-api"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modify Load-Balancer to add WAF",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"name\": \"gcp-nginx-api\",\n    \"namespace\": null,\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": \"Test LB created by {{name}} using API\",\n    \"disable\": null\n  },\n  \"spec\": {\n    \"domains\": [\n      \"nginx.api.internal\"\n    ],\n    \"http\": {\n      \"dns_volterra_managed\": null\n    },\n    \"advertise_custom\": {\n      \"advertise_where\": [\n        {\n          \"site\": {\n            \"network\": \"SITE_NETWORK_INSIDE\",\n            \"site\": {\n              \"tenant\": null,\n              \"namespace\": \"system\",\n                \"name\": \"aws-{{site-name}}\"\n              },\n              \"ip\": null\n            },\n            \"use_default_port\": {}\n          }\n        ]\n      },\n      \"default_route_pools\": [\n        {\n          \"pool\": {\n            \"tenant\": null,\n            \"namespace\": \"{{app-namespace}}\",\n            \"name\": \"gcp-nginx-api\"\n          },\n          \"weight\": 1,\n          \"endpoint_subsets\": {}\n        }\n      ],\n      \"routes\": null,\n      \"cors_policy\": null,\n      \"waf\": {\n        \"tenant\": null,\n        \"namespace\": \"shared\",\n        \"name\": \"blocking-waf-api\"\n      },\n      \"add_location\": null,\n      \"no_challenge\": {},\n      \"more_option\": null,\n      \"user_identification\": null,\n      \"disable_rate_limit\": {},\n      \"malicious_user_mitigation\": null,\n      \"waf_exclusion_rules\": null,\n      \"blocked_clients\": null,\n      \"trusted_clients\": null,\n      \"ddos_mitigation_rules\": null,\n      \"service_policies_from_namespace\": {},\n      \"round_robin\": {},\n      \"multi_lb_app\": {}\n    }\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/http_loadbalancers/gcp-nginx-api",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"http_loadbalancers",
+								"gcp-nginx-api"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete App & WAF",
+			"item": [
+				{
+					"name": "Delete Load-Balancer",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"fail_if_referred\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/http_loadbalancers/gcp-nginx-api",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"http_loadbalancers",
+								"gcp-nginx-api"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Load-Balancer",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/http_loadbalancers/gcp-nginx-api",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"http_loadbalancers",
+								"gcp-nginx-api"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Origin",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"fail_if_referred\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/origin_pools/gcp-nginx-api",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"origin_pools",
+								"gcp-nginx-api"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Origin",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/origin_pools/gcp-nginx-api",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"origin_pools",
+								"gcp-nginx-api"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete WAF",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"fail_if_referred\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/shared/app_firewalls/blocking-waf-api",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"shared",
+								"app_firewalls",
+								"blocking-waf-api"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify WAF",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/shared/app_firewalls/blocking-waf-api",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"shared",
+								"app_firewalls",
+								"blocking-waf-api"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "L7 Routing",
+			"item": [
+				{
+					"name": "Create Origin L7 V1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"name\": \"gcp-l7-v1-api\",\n    \"namespace\": null,\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": \"Test L7 origin created by {{name}} using API\",\n    \"disable\": null\n  },\n  \"spec\": {\n    \"origin_servers\": [\n      {\n        \"labels\": {},\n        \"private_ip\": {\n          \"ip\": \"10.0.0.3\",\n          \"site_locator\": {\n            \"site\": {\n              \"tenant\": null,\n              \"namespace\": \"system\",\n              \"name\": \"gcp-{{site-name}}\"\n            }\n          },\n          \"outside_network\": {}\n        }\n      }\n    ],\n    \"no_tls\": {},\n    \"port\": \"80\",\n    \"same_as_endpoint_port\": {},\n    \"healthcheck\": null,\n    \"loadbalancer_algorithm\": \"LB_OVERRIDE\",\n    \"endpoint_selection\": \"LOCAL_PREFERRED\",\n    \"advanced_options\": null\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/origin_pools",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"origin_pools"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Origin L7 V2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"name\": \"gcp-l7-v2-api\",\n    \"namespace\": null,\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": \"Test L7 origin created by {{name}} using API\",\n    \"disable\": null\n  },\n  \"spec\": {\n    \"origin_servers\": [\n      {\n        \"labels\": {},\n        \"private_ip\": {\n          \"ip\": \"10.0.0.4\",\n          \"site_locator\": {\n            \"site\": {\n              \"tenant\": null,\n              \"namespace\": \"system\",\n              \"name\": \"gcp-{{site-name}}\"\n            }\n          },\n          \"outside_network\": {}\n        }\n      }\n    ],\n    \"no_tls\": {},\n    \"port\": \"80\",\n    \"same_as_endpoint_port\": {},\n    \"healthcheck\": null,\n    \"loadbalancer_algorithm\": \"LB_OVERRIDE\",\n    \"endpoint_selection\": \"LOCAL_PREFERRED\",\n    \"advanced_options\": null\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/origin_pools",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"origin_pools"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Load-Balancer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"name\": \"gcp-l7-api\",\n    \"namespace\": null,\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": \"Test L7 LB created by {{name}} using API\",\n    \"disable\": null\n  },\n  \"spec\": {\n    \"domains\": [\n      \"l7.api.internal\"\n    ],\n    \"http\": {\n      \"dns_volterra_managed\": null\n    },\n    \"advertise_custom\": {\n      \"advertise_where\": [\n        {\n          \"site\": {\n            \"network\": \"SITE_NETWORK_INSIDE\",\n            \"site\": {\n              \"tenant\": null,\n              \"namespace\": \"system\",\n                \"name\": \"aws-{{site-name}}\"\n              },\n              \"ip\": null\n            },\n            \"use_default_port\": {}\n          }\n        ]\n      },\n      \"default_route_pools\": [\n        {\n          \"pool\": {\n            \"tenant\": null,\n            \"namespace\": \"{{app-namespace}}\",\n            \"name\": \"gcp-l7-v1-api\"\n          },\n          \"weight\": 1,\n          \"endpoint_subsets\": {}\n        }\n      ],\n    \"routes\": [\n      {\n        \"simple_route\": {\n          \"http_method\": \"ANY\",\n          \"path\": {\n            \"prefix\": \"/v1\"\n          },\n          \"origin_pools\": [\n            {\n              \"pool\": {\n                \"tenant\": null,\n                \"namespace\": \"{{app-namespace}}\",\n                \"name\": \"gcp-l7-v1-api\"\n              },\n              \"weight\": 1,\n              \"endpoint_subsets\": {}\n            }\n          ],\n          \"auto_host_rewrite\": {},\n          \"advanced_options\": null\n        }\n      },\n      {\n        \"simple_route\": {\n          \"http_method\": \"ANY\",\n          \"path\": {\n            \"prefix\": \"/v2\"\n          },\n          \"origin_pools\": [\n            {\n              \"pool\": {\n                \"tenant\": null,\n                \"namespace\": \"{{app-namespace}}\",\n                \"name\": \"gcp-l7-v2-api\"\n              },\n              \"weight\": 1,\n              \"endpoint_subsets\": {}\n            }\n          ],\n          \"auto_host_rewrite\": {},\n          \"advanced_options\": null\n        }\n      }\n    ],\n      \"cors_policy\": null,\n      \"disable_waf\": {},\n      \"add_location\": null,\n      \"no_challenge\": {},\n      \"more_option\": null,\n      \"user_identification\": null,\n      \"disable_rate_limit\": {},\n      \"malicious_user_mitigation\": null,\n      \"waf_exclusion_rules\": null,\n      \"blocked_clients\": null,\n      \"trusted_clients\": null,\n      \"ddos_mitigation_rules\": null,\n      \"service_policies_from_namespace\": {},\n      \"round_robin\": {},\n      \"multi_lb_app\": {}\n    }\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/http_loadbalancers",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"http_loadbalancers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "mTLS Auth",
+			"item": [
+				{
+					"name": "Create Origin Auth",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"name\": \"auth-origin-api\",\n    \"namespace\": null,\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": \"Test mtls auth origin created by {{name}} using API\",\n    \"disable\": null\n  },\n  \"spec\": {\n    \"origin_servers\": [\n      {\n        \"labels\": {},\n        \"private_ip\": {\n          \"ip\": \"10.0.0.3\",\n          \"site_locator\": {\n            \"site\": {\n              \"tenant\": null,\n              \"namespace\": \"system\",\n              \"name\": \"gcp-{{site-name}}\"\n            }\n          },\n          \"outside_network\": {}\n        }\n      }\n    ],\n    \"no_tls\": {},\n    \"port\": \"80\",\n    \"same_as_endpoint_port\": {},\n    \"healthcheck\": null,\n    \"loadbalancer_algorithm\": \"LB_OVERRIDE\",\n    \"endpoint_selection\": \"LOCAL_PREFERRED\",\n    \"advanced_options\": null\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/origin_pools",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"origin_pools"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Load-Balancer Auth",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"name\": \"auth-internal-api\",\n    \"namespace\": null,\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": \"Test L7 LB created by {{name}} using API\",\n    \"disable\": null\n  },\n  \"spec\": {\n    \"domains\": [\n      \"auth.internal\"\n    ],\n    \"https\": {\n      \"http_redirect\": null,\n      \"add_hsts\": null,\n      \"disable_path_normalize\": {},\n      \"tls_parameters\": {\n        \"tls_config\": {\n          \"default_security\": {}\n        },\n        \"tls_certificates\": [\n          {\n            \"certificate_url\": \"string:///LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURoVENDQW0yZ0F3SUJBZ0lVUHFlWitnK0c4UC9RbFliMnN6MXoxL05kYkYwd0RRWUpLb1pJaHZjTkFRRUwKQlFBd2dZWXhDekFKQmdOVkJBWVRBbWRpTVE4d0RRWURWUVFJREFaTWIyNWtiMjR4RHpBTkJnTlZCQWNNQmt4dgpibVJ2YmpFUU1BNEdBMVVFQ2d3SFlYSmphQzFtTlRFUk1BOEdBMVVFQ3d3SWNISmxjMkZzWlhNeEZEQVNCZ05WCkJBTU1DMk5oTG1sdWRHVnlibUZzTVJvd0dBWUpLb1pJaHZjTkFRa0JGZ3RoY21Ob1FHWTFMbU52YlRBZUZ3MHkKTVRFd01URXhNVEUzTkRaYUZ3MHlNakV3TVRFeE1URTNORFphTUZReEN6QUpCZ05WQkFZVEFrZENNUTh3RFFZRApWUVFJREFaTWIyNWtiMjR4RHpBTkJnTlZCQWNNQmt4dmJtUnZiakVMTUFrR0ExVUVDZ3dDWmpVeEZqQVVCZ05WCkJBTU1EV0YxZEdndWFXNTBaWEp1WVd3d2dnRWlNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0SUJEd0F3Z2dFS0FvSUIKQVFEQ1JrOGZyRzBEaUxVcFVLRTFxdEhaTkFPVi9XZFhsQU9mU3JuaWRITmVvM2lveUREZ2lRS3JWeUxaeHFjVgpMek15aTFPSkhQYUpjaGhPaG1zTVIzaEJvczBWSkZoRGU0UXNvS1B2bytBU3dOY3JtWHNjSmY1ZTh1S1JXbzM0ClFGYVZTWkpTNmgwaGFWVzY4OUMzUm1idWZVY3RGVUNSazdod3RKb0RCMXloK3lIbW42M1NuZXFubzVRWnlvVUQKa2hXSk4zdXluWkdMQlRjZSsraHFiRE5WVkV5ckV5MGRJOWo1M2xMZzkzUi9ZWHlocTZFQmRBdzVFemhFU3o4dApJNlFrSUZyQVo0cVNjZlJLMHlpUWh2V0FPb3daVGJUZHZYUGQzRExPMmtvQ2lLQjBvdnZ1dWRmZWpMTmhmcHJsCm5yYVl0UUt5VElIbmJyUm1rWTl5VVdDakFnTUJBQUdqSERBYU1CZ0dBMVVkRVFRUk1BK0NEV0YxZEdndWFXNTAKWlhKdVlXd3dEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBSDg2Y2RDakVtZklDMFJpYjNIWi9BeG1Qa0tDWUQrOApnQWx2L25qUmlCbnNSWjdwVXZPMmtKNnN0Z2k0c3BPV2RJa1hvSi9OMm82NXl1SGorZzdpZjZXS1pyNHFYRVNiCndDOTFidjE4NVVBOENwNVg4QkxkRU4rVjBsSUxSaURCTytUSG9EY01mTkhDMnpweXNxY1cvMUJnV3U0Y3dxYzYKWEdIdE1zcGRGS2doRHQ2bFBlejd1dzJqRHZZZjJyejcxNG1kREF5VGsyUEpEOXpZQVVFVmJSUFRvczEzSDUzVgpxQ2xKanV0WUxIQXV5MkdKUkkraUxMaWZyRDhmTm5qcnN2cktmNkpzNzhrUkp4Mk9SV0JoUEVBWkJMQ2ZWVGQ1ClRITGhvTVk4SGhtQzUyMzQ2MzNZL05TSWJidzdReGhFVFZpQndidU8wUjdBdGhKR1JMYUxhVUk9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K\",\n            \"private_key\": {\n              \"clear_secret_info\": {\n                \"url\": \"string:///LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUV2d0lCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQktrd2dnU2xBZ0VBQW9JQkFRRENSazhmckcwRGlMVXAKVUtFMXF0SFpOQU9WL1dkWGxBT2ZTcm5pZEhOZW8zaW95RERnaVFLclZ5TFp4cWNWTHpNeWkxT0pIUGFKY2hoTwpobXNNUjNoQm9zMFZKRmhEZTRRc29LUHZvK0FTd05jcm1Yc2NKZjVlOHVLUldvMzRRRmFWU1pKUzZoMGhhVlc2Cjg5QzNSbWJ1ZlVjdEZVQ1JrN2h3dEpvREIxeWgreUhtbjYzU25lcW5vNVFaeW9VRGtoV0pOM3V5blpHTEJUY2UKKytocWJETlZWRXlyRXkwZEk5ajUzbExnOTNSL1lYeWhxNkVCZEF3NUV6aEVTejh0STZRa0lGckFaNHFTY2ZSSwoweWlRaHZXQU9vd1pUYlRkdlhQZDNETE8ya29DaUtCMG92dnV1ZGZlakxOaGZwcmxucmFZdFFLeVRJSG5iclJtCmtZOXlVV0NqQWdNQkFBRUNnZ0VCQUtGZmtiMzNsaDRIWXFSTTYzd094bjByYlljYmxNbjBrd1d3SnJQcWt5S2IKbTFCbjZlRzVMVlJ4N3VzQ3ppc1VwK3htT3g5N3hYWHFKaktrQ1N1TCttSmEvd3Qrd3lwYTRUSEl4aVA2OWRmZQpBMTJlQWRzaDNDZTJqV2k3MVkzT3M1MFNIYzl0MUlDNlpKSUVrT3lNT0ZnR0RDZHdyYysrNnNnRDNLS0RiUGpHCmxhVmxMWUJzMXZxOXVLRDFiaHhBZjNDQmt6S3pValdHSVlLVVdXalFwcVkvNDMvNzlHOFp3MDRQVjU4ZzJkZDQKTjVRMjNmWFEzdUZkT3BFSUp5T1FXcWh3THBFejNTYVJRV3JRQmpGM0xaOWlCa0ZXZ0hiTWllUUI2b1d3RUhYMQpGSmhaRE9Vb3F2MTkvMEEvWE5Md0oxeFdJdEx2em8zMm5iemlma3ZhQU1FQ2dZRUEzK0pSMDhaUUVnMURkNEhBCkRmNGk2bmxtVndZaUJFL2haQVkvdGdlMXhVYjhNWnpqOG5kUVdXek90WDhWV3ZTVENlalZseFJEYTI4ejR4Vk8KQTRDQlpNOFhEeENYckZIQ3AyOSsvM1hraUpZbWJTZnhoemhzcVNNbnNBZDFyOHFKQjJqbUFIKyt1a2VRTUFIUgo2ZDZlclRERk1ZYUdXV3R4aDNSMHFIYVRjUE1DZ1lFQTNpU2xDd2c5UzdjV0VVdUo2MG9zaUtxK2RON2RJcjNPCkFibG5uYThaOEh1b2dLSFNCWXFETnE0dTNENlZVaE5JOGlROXh2b2xlc3BjWjBKVkVVSWM2SzJxdXlqM3VjbGwKa3E0N3hLWkpKOWNJNUl5SVp3ZTNxYVlQeHNDSXFVYS9lSHAxTkl6ZmFEenlJRmhrWHJQSFEvMFluSUdhVjN1eApJR2JOVkNxcHZaRUNnWUVBcDZJL0lMR1puSnFmektpelZBYll2L1ljWWNhdXk4bS8rdlFPMms1VmxSdzhreTFsCkpGU2dMZ1VobFpaTk9DaHV2SG5CQy9sWkxlVTYxYXBMR3FZcXZIK3ZSVkZvTDllY1IyQmRtQXYvRFNKWUxWMCsKSk1CajVCVDFqNEZXWmtUaGExSG8vYkNvNzdQTHk1WmhSWnF4OXYzUWVPL0FRczRIV0tRakFVeWZ3MjhDZ1lFQQpzWWFyZHRPUTJLOXFMVXdtM2lnYXl1Vlk2MkVuYkJvdlJlVjdUdUtlWWpjUWhDdk9BYXVlRE5iS2tDeGJmSW40CjQ3bmV2T012akorbmxNWEg0ZERwOVhERVhtbncvMEpac0EwWnFxQVJHb3VZaWIxZFRLazRONVdFU2h1WG0xLzAKcUQyRTZRZ2ppZFFhMDRxUU83YUVhbXNiZmdkODVxanM5cTN4TFhBaTBtRUNnWUJCQW9JenBrRmxKTGdvOE5uaQpsYk1rUm1jV0lEbXJSNUFzdWlRNGh2TkJVQXlIbm00VDRSRlRnc2dSQU14V2cwZUxBSFZpWFNQS3lqdjdXWloxCkEzM1E1UFJLLzhwVVY4bzk5bC83ZE9UNVpaYiszTE1PVHVjYkVscldoYkpYcitmTkRFS1RDODhkYlAvelY2ZWgKTEdsbHdLbmdNY1hZK0RPTTR5ZmdpTUkyUVE9PQotLS0tLUVORCBQUklWQVRFIEtFWS0tLS0tCg==\",\n                \"decryption_provider\": null,\n                \"store_provider\": null\n              },\n              \"blindfold_secret_info_internal\": null,\n              \"secret_encoding_type\": \"EncodingNone\"\n            },\n            \"description\": \"auth internal cert created by {{name}} using API\"\n          }\n        ],\n        \"use_mtls\": {\n          \"trusted_ca_url\": \"string:///LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUQ3ekNDQXRlZ0F3SUJBZ0lVQ3ZnaU1RVHcxUm9YLzRWMlIrcFVZb25Dczk0d0RRWUpLb1pJaHZjTkFRRUwKQlFBd2dZWXhDekFKQmdOVkJBWVRBbWRpTVE4d0RRWURWUVFJREFaTWIyNWtiMjR4RHpBTkJnTlZCQWNNQmt4dgpibVJ2YmpFUU1BNEdBMVVFQ2d3SFlYSmphQzFtTlRFUk1BOEdBMVVFQ3d3SWNISmxjMkZzWlhNeEZEQVNCZ05WCkJBTU1DMk5oTG1sdWRHVnlibUZzTVJvd0dBWUpLb1pJaHZjTkFRa0JGZ3RoY21Ob1FHWTFMbU52YlRBZUZ3MHkKTVRBM01qRXhPRFF4TXpGYUZ3MHlNekV3TWpReE9EUXhNekZhTUlHR01Rc3dDUVlEVlFRR0V3Sm5ZakVQTUEwRwpBMVVFQ0F3R1RHOXVaRzl1TVE4d0RRWURWUVFIREFaTWIyNWtiMjR4RURBT0JnTlZCQW9NQjJGeVkyZ3RaalV4CkVUQVBCZ05WQkFzTUNIQnlaWE5oYkdWek1SUXdFZ1lEVlFRRERBdGpZUzVwYm5SbGNtNWhiREVhTUJnR0NTcUcKU0liM0RRRUpBUllMWVhKamFFQm1OUzVqYjIwd2dnRWlNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0SUJEd0F3Z2dFSwpBb0lCQVFERGtzczFuRzVHdEdjd0E1d3RETVFrSVZlWXJxMWJKakU0czl6ZmdvWDY5a2lXbEwyY3JEWWZoNFdnClRmQ0xObEJublEzMmJ0K0I2MWNIRHdyRU5NU2xHN3c2WHBnWDVmeHlOQ010akZqR3VVMGlhSStNRVBXS05MMFkKcE8yL21rUDhaQW5iN1NldWpoeWJnc3Zuamt5UkozQXY4ajBlc3gzZFhmMVVhaU1yaVFPdmowR2xmMVhaU0c0cQpUYVdYSVplWkpGbnhhUW5aQlZxSlhOS1NVMnlVdWxCVHphVklPRzAzZ0d4dkcxbGJoREVmTllEU3JzQkY0WDJyCnRTSEJKWXhmOE5kY3BxR1RSb3ZGT1hXdmFNdjdPdzJzU2QvNHJUNXE4aDJ5SFBEWkR4dS9XVnBiNm9tbWJyc1EKY3o1UkJXM1RaWkxWY3FZQTk5aUJOKzA4TUNrRkFnTUJBQUdqVXpCUk1CMEdBMVVkRGdRV0JCUWpzT08rUjk2cApHUFhsNUdpYUlIdms0ZCtMZXpBZkJnTlZIU01FR0RBV2dCUWpzT08rUjk2cEdQWGw1R2lhSUh2azRkK0xlekFQCkJnTlZIUk1CQWY4RUJUQURBUUgvTUEwR0NTcUdTSWIzRFFFQkN3VUFBNElCQVFDYkd2QTE5bjltVXZPVzBQeUwKeDNPYTFsQTc3UnhINm8zMlh3alJpNnNSQW1IaGpMNEJNY0hzODBpTEZOL3dYR3BaRWpEL21CaTVSNmFFYTVBUwpKSVV1Z0ROVGUvZUZna2lhMEtnU1ZDb3ZGVjZNY2QvSTFKZE1XTUhRazlLMjFHdHg2aDYvdUVORkFQUG44YTltCjRBekZyanZwKzZhU3VocWtQSGUzQVVMc09VaGxvNW0vR3hQVno2Z0syVFJxMVk1OERsTnl6eGZXR3dtbmFKRGwKVmRhSlh5Q1Y2bDk2YTZFRlBzZ2N2aEFTajBaSWhPVllhenBsWVlnTDh6N1J3TDA5dHVPRWNtc0lza1FDWWlsegpIUk13NWtJOG9oNncwcWVkUldHYXJkazZGblQyNk1vdEprcmhyWUUzOXp2RExBMFJOakt3cDdhWCtJQ3ZrUi82CndYTWYKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=\"\n        }\n      },\n      \"default_header\": {}\n    },\n    \"advertise_custom\": {\n      \"advertise_where\": [\n        {\n          \"site\": {\n            \"network\": \"SITE_NETWORK_INSIDE\",\n            \"site\": {\n              \"tenant\": null,\n              \"namespace\": \"system\",\n                \"name\": \"aws-{{site-name}}\"\n              },\n              \"ip\": null\n            },\n            \"use_default_port\": {}\n          }\n        ]\n      },\n      \"default_route_pools\": [\n        {\n          \"pool\": {\n            \"tenant\": null,\n            \"namespace\": \"{{app-namespace}}\",\n            \"name\": \"auth-origin-api\"\n          },\n          \"weight\": 1,\n          \"endpoint_subsets\": {}\n        }\n      ],\n      \"routes\": null,\n      \"cors_policy\": null,\n      \"disable_waf\": {},\n      \"add_location\": null,\n      \"no_challenge\": {},\n      \"more_option\": null,\n      \"user_identification\": null,\n      \"disable_rate_limit\": {},\n      \"malicious_user_mitigation\": null,\n      \"waf_exclusion_rules\": null,\n      \"blocked_clients\": null,\n      \"trusted_clients\": null,\n      \"ddos_mitigation_rules\": null,\n      \"service_policies_from_namespace\": {},\n      \"round_robin\": {},\n      \"multi_lb_app\": {}\n    }\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/http_loadbalancers",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"http_loadbalancers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Canary Testing",
+			"item": [
+				{
+					"name": "Create Origin L7 V1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"name\": \"gcp-l7-v1-api\",\n    \"namespace\": null,\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": \"Test L7 origin created by {{name}} using API\",\n    \"disable\": null\n  },\n  \"spec\": {\n    \"origin_servers\": [\n      {\n        \"labels\": {},\n        \"private_ip\": {\n          \"ip\": \"10.0.0.3\",\n          \"site_locator\": {\n            \"site\": {\n              \"tenant\": null,\n              \"namespace\": \"system\",\n              \"name\": \"gcp-{{site-name}}\"\n            }\n          },\n          \"outside_network\": {}\n        }\n      }\n    ],\n    \"no_tls\": {},\n    \"port\": \"80\",\n    \"same_as_endpoint_port\": {},\n    \"healthcheck\": null,\n    \"loadbalancer_algorithm\": \"LB_OVERRIDE\",\n    \"endpoint_selection\": \"LOCAL_PREFERRED\",\n    \"advanced_options\": null\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/origin_pools",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"origin_pools"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Origin L7 V2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"name\": \"gcp-l7-v2-api\",\n    \"namespace\": null,\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": \"Test L7 origin created by {{name}} using API\",\n    \"disable\": null\n  },\n  \"spec\": {\n    \"origin_servers\": [\n      {\n        \"labels\": {},\n        \"private_ip\": {\n          \"ip\": \"10.0.0.4\",\n          \"site_locator\": {\n            \"site\": {\n              \"tenant\": null,\n              \"namespace\": \"system\",\n              \"name\": \"gcp-{{site-name}}\"\n            }\n          },\n          \"outside_network\": {}\n        }\n      }\n    ],\n    \"no_tls\": {},\n    \"port\": \"80\",\n    \"same_as_endpoint_port\": {},\n    \"healthcheck\": null,\n    \"loadbalancer_algorithm\": \"LB_OVERRIDE\",\n    \"endpoint_selection\": \"LOCAL_PREFERRED\",\n    \"advanced_options\": null\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/origin_pools",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"origin_pools"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Load-Balancer Canary",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"name\": \"canary-internal-api\",\n    \"namespace\": \"{{app-namespace}}\",\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": \"Test L7 origin created by {{name}} using API\",\n    \"disable\": null\n  },\n  \"spec\": {\n    \"domains\": [\n      \"canary.internal\"\n    ],\n    \"http\": {\n      \"dns_volterra_managed\": null\n    },\n    \"advertise_custom\": {\n      \"advertise_where\": [\n        {\n          \"site\": {\n            \"network\": \"SITE_NETWORK_INSIDE\",\n            \"site\": {\n              \"tenant\": null,\n              \"namespace\": \"system\",\n              \"name\": \"aws-{{site-name}}\"\n            },\n            \"ip\": null\n          },\n          \"use_default_port\": {}\n        }\n      ]\n    },\n    \"default_route_pools\": [\n      {\n        \"pool\": {\n          \"tenant\": null,\n          \"namespace\": \"{{app-namespace}}\",\n          \"name\": \"gcp-l7-v1-api\"\n        },\n        \"weight\": 1,\n        \"endpoint_subsets\": {}\n      },\n      {\n        \"pool\": {\n          \"tenant\": null,\n          \"namespace\": \"{{app-namespace}}\",\n          \"name\": \"gcp-l7-v2-api\"\n        },\n        \"weight\": 1,\n        \"endpoint_subsets\": {}\n      }\n    ],\n    \"routes\": null,\n    \"cors_policy\": null,\n    \"disable_waf\": {},\n    \"add_location\": null,\n    \"no_challenge\": {},\n    \"more_option\": null,\n    \"user_identification\": null,\n    \"disable_rate_limit\": {},\n    \"malicious_user_mitigation\": null,\n    \"waf_exclusion_rules\": null,\n    \"blocked_clients\": null,\n    \"trusted_clients\": null,\n    \"ddos_mitigation_rules\": null,\n    \"service_policies_from_namespace\": {},\n    \"round_robin\": {},\n    \"multi_lb_app\": {}\n  },\n  \"resource_version\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/http_loadbalancers",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"http_loadbalancers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete L7 Routing",
+			"item": [
+				{
+					"name": "Delete Load-Balancer",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"name\": \"gcp-l7-api\",\n    \"namespace\": null,\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": \"Test L7 LB created by {{name}} using API\",\n    \"disable\": null\n  },\n  \"spec\": {\n    \"domains\": [\n      \"l7.api.internal\"\n    ],\n    \"http\": {\n      \"dns_volterra_managed\": null\n    },\n    \"advertise_custom\": {\n      \"advertise_where\": [\n        {\n          \"site\": {\n            \"network\": \"SITE_NETWORK_INSIDE\",\n            \"site\": {\n              \"tenant\": null,\n              \"namespace\": \"system\",\n                \"name\": \"aws-{{site-name}}\"\n              },\n              \"ip\": null\n            },\n            \"use_default_port\": {}\n          }\n        ]\n      },\n      \"default_route_pools\": [\n        {\n          \"pool\": {\n            \"tenant\": null,\n            \"namespace\": \"{{app-namespace}}\",\n            \"name\": \"gcp-l7-v1-api\"\n          },\n          \"weight\": 1,\n          \"endpoint_subsets\": {}\n        }\n      ],\n    \"routes\": [\n      {\n        \"simple_route\": {\n          \"http_method\": \"ANY\",\n          \"path\": {\n            \"prefix\": \"/v1\"\n          },\n          \"origin_pools\": [\n            {\n              \"pool\": {\n                \"tenant\": null,\n                \"namespace\": \"{{app-namespace}}\",\n                \"name\": \"gcp-l7-v1-api\"\n              },\n              \"weight\": 1,\n              \"endpoint_subsets\": {}\n            }\n          ],\n          \"auto_host_rewrite\": {},\n          \"advanced_options\": null\n        }\n      },\n      {\n        \"simple_route\": {\n          \"http_method\": \"ANY\",\n          \"path\": {\n            \"prefix\": \"/v2\"\n          },\n          \"origin_pools\": [\n            {\n              \"pool\": {\n                \"tenant\": null,\n                \"namespace\": \"{{app-namespace}}\",\n                \"name\": \"gcp-l7-v2-api\"\n              },\n              \"weight\": 1,\n              \"endpoint_subsets\": {}\n            }\n          ],\n          \"auto_host_rewrite\": {},\n          \"advanced_options\": null\n        }\n      }\n    ],\n      \"cors_policy\": null,\n      \"disable_waf\": {},\n      \"add_location\": null,\n      \"no_challenge\": {},\n      \"more_option\": null,\n      \"user_identification\": null,\n      \"disable_rate_limit\": {},\n      \"malicious_user_mitigation\": null,\n      \"waf_exclusion_rules\": null,\n      \"blocked_clients\": null,\n      \"trusted_clients\": null,\n      \"ddos_mitigation_rules\": null,\n      \"service_policies_from_namespace\": {},\n      \"round_robin\": {}\n    }\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/http_loadbalancers/gcp-l7-api",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"http_loadbalancers",
+								"gcp-l7-api"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Origin L7 V1",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/origin_pools/gcp-l7-v1-api",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"origin_pools",
+								"gcp-l7-v1-api"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Origin L7 V2",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"name\": \"gcp-l7-v2-api\",\n    \"namespace\": null,\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": \"Test L7 origin created by {{name}} using API\",\n    \"disable\": null\n  },\n  \"spec\": {\n    \"origin_servers\": [\n      {\n        \"labels\": {},\n        \"private_ip\": {\n          \"ip\": \"10.0.0.4\",\n          \"site_locator\": {\n            \"site\": {\n              \"tenant\": null,\n              \"namespace\": \"system\",\n              \"name\": \"gcp-{{site-name}}\"\n            }\n          },\n          \"outside_network\": {}\n        }\n      }\n    ],\n    \"no_tls\": {},\n    \"port\": \"80\",\n    \"same_as_endpoint_port\": {},\n    \"healthcheck\": null,\n    \"loadbalancer_algorithm\": \"LB_OVERRIDE\",\n    \"endpoint_selection\": \"LOCAL_PREFERRED\",\n    \"advanced_options\": null\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/origin_pools/gcp-l7-v2-api",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"origin_pools",
+								"gcp-l7-v2-api"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete mTLS Auth",
+			"item": [
+				{
+					"name": "Delete Load-Balancer Auth",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/http_loadbalancers/auth-internal-api",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"http_loadbalancers",
+								"auth-internal-api"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Origin Auth",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/origin_pools/auth-origin-api",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"origin_pools",
+								"auth-origin-api"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete Canary Testing",
+			"item": [
+				{
+					"name": "Delete Load-Balancer Canary",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/http_loadbalancers/canary-internal-api",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"http_loadbalancers",
+								"canary-internal-api"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Origin L7 V1",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/origin_pools/gcp-l7-v1-api",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"origin_pools",
+								"gcp-l7-v1-api"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Origin L7 V2",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/origin_pools/gcp-l7-v2-api",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"origin_pools",
+								"gcp-l7-v2-api"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Create Firewall",
+			"item": [
+				{
+					"name": "Create Network Policy (DENY)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"name\": \"test-block-api\",\n    \"namespace\": null,\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": null,\n    \"disable\": null\n  },\n  \"spec\": {\n    \"endpoint\": {\n      \"any\": {}\n    },\n    \"ingress_rules\": [\n      {\n        \"metadata\": {\n          \"name\": \"block-any\",\n          \"description\": null,\n          \"disable\": null\n        },\n        \"rule_name\": null,\n        \"rule_description\": null,\n        \"action\": \"DENY\",\n        \"adv_action\": {\n          \"action\": \"LOG\"\n        },\n        \"any\": {},\n        \"all_traffic\": {},\n        \"keys\": null,\n        \"label_matcher\": {\n          \"keys\": null\n        }\n      }\n    ],\n    \"egress_rules\": null\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/system/network_policy_views",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"system",
+								"network_policy_views"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Network Firewall (DENY)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"name\": \"test-block-api\",\n    \"namespace\": null,\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": null,\n    \"disable\": null\n  },\n  \"spec\": {\n    \"active_network_policies\": {\n      \"network_policies\": [\n        {\n          \"tenant\": null,\n          \"namespace\": \"system\",\n          \"name\": \"test-block-api\"\n        }\n      ]\n    },\n    \"disable_forward_proxy_policy\": {},\n    \"disable_fast_acl\": {}\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/system/network_firewalls",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"system",
+								"network_firewalls"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modify Site to Add Firewall (DENY)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"name\": \"aws-{{site-name}}\",\n    \"namespace\": \"system\",\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": \"Created by {{name}} using API\",\n    \"disable\": null\n  },\n  \"spec\": {\n      \"vpc\": {\n          \"new_vpc\": {\n              \"name_tag\": \"volterra-test-site\",\n              \"primary_ipv4\": \"10.0.0.0/16\",\n              \"allocate_ipv6\": false\n          }\n      },\n      \"ingress_egress_gw\": {\n          \"az_nodes\": [\n              {\n                  \"aws_az_name\": \"eu-west-2a\",\n                  \"reserved_inside_subnet\": {},\n                  \"outside_subnet\": {\n                      \"subnet_param\": {\n                          \"ipv4\": \"10.0.99.0/24\",\n                          \"ipv6\": \"\"\n                      }\n                  },\n                  \"workload_subnet\": {\n                      \"subnet_param\": {\n                          \"ipv4\": \"10.0.0.0/24\",\n                          \"ipv6\": \"\"\n                      }\n                  },\n                  \"disk_size\": 0\n              }\n          ],\n          \"active_network_policies\": {\n            \"network_policies\": [\n              {\n                \"tenant\": null,\n                \"namespace\": \"system\",\n                \"name\": \"test-block-api\"\n              }\n            ]\n          },\n          \"no_forward_proxy\": {},\n          \"aws_certified_hw\": \"aws-byol-multi-nic-voltmesh\",\n          \"no_inside_static_routes\": {},\n          \"no_outside_static_routes\": {},\n          \"no_global_network\": {},\n          \"allowed_vip_port\": {\n              \"use_http_https_port\": {}\n          },\n          \"allowed_vip_port_sli\": {\n              \"use_http_https_port\": {}\n          }\n      },\n      \"aws_cred\": {\n          \"tenant\": null,\n          \"namespace\": \"system\",\n          \"name\": \"aws-creds\"\n      },\n      \"instance_type\": \"t3.xlarge\",\n      \"disk_size\": null,\n      \"aws_region\": \"eu-west-2\",\n    \"ssh_key\": null,\n    \"address\": null,\n    \"coordinates\": null,\n    \"logs_streaming_disabled\": {},\n    \"sw\": {\n      \"default_sw_version\": {}\n    },\n    \"os\": {\n      \"default_os_version\": {}\n    },\n    \"no_worker_nodes\": {}\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/system/aws_vpc_sites/aws-{{site-name}}",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"system",
+								"aws_vpc_sites",
+								"aws-{{site-name}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Network Policy (ALLOW)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"name\": \"test-allow-api\",\n    \"namespace\": null,\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": null,\n    \"disable\": null\n  },\n  \"spec\": {\n    \"endpoint\": {\n      \"any\": {}\n    },\n    \"ingress_rules\": [\n      {\n        \"metadata\": {\n          \"name\": \"allow-all\",\n          \"description\": null,\n          \"disable\": null\n        },\n        \"rule_name\": null,\n        \"rule_description\": null,\n        \"action\": \"ALLOW\",\n        \"adv_action\": {\n          \"action\": \"LOG\"\n        },\n        \"any\": {},\n        \"all_traffic\": {},\n        \"keys\": null,\n        \"label_matcher\": {\n          \"keys\": null\n        }\n      }\n    ],\n    \"egress_rules\": [\n      {\n        \"metadata\": {\n          \"name\": \"allow-all\",\n          \"description\": null,\n          \"disable\": null\n        },\n        \"rule_name\": null,\n        \"rule_description\": null,\n        \"action\": \"ALLOW\",\n        \"adv_action\": {\n          \"action\": \"LOG\"\n        },\n        \"any\": {},\n        \"all_traffic\": {},\n        \"keys\": null,\n        \"label_matcher\": {\n          \"keys\": null\n        }\n      }\n    ]\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/system/network_policy_views",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"system",
+								"network_policy_views"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Network Firewall (ALLOW)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"name\": \"test-allow-api\",\n    \"namespace\": null,\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": null,\n    \"disable\": null\n  },\n  \"spec\": {\n    \"active_network_policies\": {\n      \"network_policies\": [\n        {\n          \"tenant\": null,\n          \"namespace\": \"system\",\n          \"name\": \"test-allow-api\"\n        }\n      ]\n    },\n    \"disable_forward_proxy_policy\": {},\n    \"disable_fast_acl\": {}\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/system/network_firewalls",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"system",
+								"network_firewalls"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modify Site to Add Firewall (ALLOW)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"name\": \"aws-{{site-name}}\",\n    \"namespace\": \"system\",\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": \"Created by {{name}} using API\",\n    \"disable\": null\n  },\n  \"spec\": {\n      \"vpc\": {\n          \"new_vpc\": {\n              \"name_tag\": \"volterra-test-site\",\n              \"primary_ipv4\": \"10.0.0.0/16\",\n              \"allocate_ipv6\": false\n          }\n      },\n      \"ingress_egress_gw\": {\n          \"az_nodes\": [\n              {\n                  \"aws_az_name\": \"eu-west-2a\",\n                  \"reserved_inside_subnet\": {},\n                  \"outside_subnet\": {\n                      \"subnet_param\": {\n                          \"ipv4\": \"10.0.99.0/24\",\n                          \"ipv6\": \"\"\n                      }\n                  },\n                  \"workload_subnet\": {\n                      \"subnet_param\": {\n                          \"ipv4\": \"10.0.0.0/24\",\n                          \"ipv6\": \"\"\n                      }\n                  },\n                  \"disk_size\": 0\n              }\n          ],\n          \"active_network_policies\": {\n            \"network_policies\": [\n              {\n                \"tenant\": null,\n                \"namespace\": \"system\",\n                \"name\": \"test-allow-api\"\n              }\n            ]\n          },\n          \"no_forward_proxy\": {},\n          \"aws_certified_hw\": \"aws-byol-multi-nic-voltmesh\",\n          \"no_inside_static_routes\": {},\n          \"no_outside_static_routes\": {},\n          \"no_global_network\": {},\n          \"allowed_vip_port\": {\n              \"use_http_https_port\": {}\n          },\n          \"allowed_vip_port_sli\": {\n              \"use_http_https_port\": {}\n          }\n      },\n      \"aws_cred\": {\n          \"tenant\": null,\n          \"namespace\": \"system\",\n          \"name\": \"aws-creds\"\n      },\n      \"instance_type\": \"t3.xlarge\",\n      \"disk_size\": null,\n      \"aws_region\": \"eu-west-2\",\n    \"ssh_key\": null,\n    \"address\": null,\n    \"coordinates\": null,\n    \"logs_streaming_disabled\": {},\n    \"sw\": {\n      \"default_sw_version\": {}\n    },\n    \"os\": {\n      \"default_os_version\": {}\n    },\n    \"no_worker_nodes\": {}\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/system/aws_vpc_sites/aws-{{site-name}}",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"system",
+								"aws_vpc_sites",
+								"aws-{{site-name}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete Firewall",
+			"item": [
+				{
+					"name": "Modify Site to Remove Firewall",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"name\": \"aws-{{site-name}}\",\n    \"namespace\": \"system\",\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": \"Created by {{name}} using API\",\n    \"disable\": null\n  },\n  \"spec\": {\n      \"vpc\": {\n          \"new_vpc\": {\n              \"name_tag\": \"volterra-test-site\",\n              \"primary_ipv4\": \"10.0.0.0/16\",\n              \"allocate_ipv6\": false\n          }\n      },\n      \"ingress_egress_gw\": {\n          \"az_nodes\": [\n              {\n                  \"aws_az_name\": \"eu-west-2a\",\n                  \"reserved_inside_subnet\": {},\n                  \"outside_subnet\": {\n                      \"subnet_param\": {\n                          \"ipv4\": \"10.0.99.0/24\",\n                          \"ipv6\": \"\"\n                      }\n                  },\n                  \"workload_subnet\": {\n                      \"subnet_param\": {\n                          \"ipv4\": \"10.0.0.0/24\",\n                          \"ipv6\": \"\"\n                      }\n                  },\n                  \"disk_size\": 0\n              }\n          ],\n          \"no_network_policy\": {},\n          \"no_forward_proxy\": {},\n          \"aws_certified_hw\": \"aws-byol-multi-nic-voltmesh\",\n          \"no_inside_static_routes\": {},\n          \"no_outside_static_routes\": {},\n          \"no_global_network\": {},\n          \"allowed_vip_port\": {\n              \"use_http_https_port\": {}\n          },\n          \"allowed_vip_port_sli\": {\n              \"use_http_https_port\": {}\n          }\n      },\n      \"aws_cred\": {\n          \"tenant\": null,\n          \"namespace\": \"system\",\n          \"name\": \"aws-creds\"\n      },\n      \"instance_type\": \"t3.xlarge\",\n      \"disk_size\": 0,\n      \"volterra_software_version\": \"crt-20210827-1282\",\n      \"operating_system_version\": \"7.2003.13\",\n      \"aws_region\": \"eu-west-2\",\n      \"ssh_key\": \"\",\n      \"address\": \"\",\n      \"coordinates\": {\n          \"latitude\": 51.50735,\n          \"longitude\": -0.127758\n      },\n      \"logs_streaming_disabled\": {},\n      \"site_state\": \"ONLINE\",\n      \"vip_params_per_az\": [\n          {\n              \"inside_vip\": [\n                  \"10.0.255.97\"\n              ],\n              \"outside_vip\": [\n                  \"10.0.99.118\"\n              ],\n              \"outside_vip_cname\": \"\",\n              \"inside_vip_cname\": \"\",\n              \"az_name\": \"eu-west-2a\"\n          }\n      ],\n      \"user_modification_timestamp\": null,\n      \"no_worker_nodes\": {}\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/system/aws_vpc_sites/aws-{{site-name}}",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"system",
+								"aws_vpc_sites",
+								"aws-{{site-name}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Network Firewall (DENY)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/system/network_firewalls/test-block-api",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"system",
+								"network_firewalls",
+								"test-block-api"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Network Policy (DENY)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/system/network_policy_views/test-block-api",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"system",
+								"network_policy_views",
+								"test-block-api"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Network Firewall (ALLOW)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/system/network_firewalls/test-allow-api",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"system",
+								"network_firewalls",
+								"test-allow-api"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Network Policy (ALLOW)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/system/network_policy_views/test-allow-api",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"system",
+								"network_policy_views",
+								"test-allow-api"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users & Roles",
+			"item": [
+				{
+					"name": "Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/web/custom/namespaces/system/user_roles",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"web",
+								"custom",
+								"namespaces",
+								"system",
+								"user_roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Roles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/web/custom/namespaces/system/roles?report_fields=",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"web",
+								"custom",
+								"namespaces",
+								"system",
+								"roles"
+							],
+							"query": [
+								{
+									"key": "report_fields",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RBAC Policies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/web/namespaces/system/rbac_policys?report_fields=",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"web",
+								"namespaces",
+								"system",
+								"rbac_policys"
+							],
+							"query": [
+								{
+									"key": "report_fields",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "API Groups",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/web/namespaces/system/api_groups?report_fields=",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"web",
+								"namespaces",
+								"system",
+								"api_groups"
+							],
+							"query": [
+								{
+									"key": "report_fields",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "API Group Elements",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/web/namespaces/system/api_group_elements?report_fields=",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"web",
+								"namespaces",
+								"system",
+								"api_group_elements"
+							],
+							"query": [
+								{
+									"key": "report_fields",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"namespace\": \"system\",\n    \"name\": \"name@domain.com\",\n    \"email\": \"name@domain.com\",\n    \"first_name\": \"First Second\",\n    \"last_name\": \"Last\",\n    \"type\": \"USER\",\n    \"idm_type\": \"VOLTERRA_MANAGED\",\n    \"namespace_roles\": [\n        {\n            \"namespace\": \"*\",\n            \"role\": \"ves-io-power-developer-role\"\n        },\n        {\n            \"namespace\": \"shared\",\n            \"role\": \"demo-sec-role\"\n        },\n        {\n            \"namespace\": \"shared\",\n            \"role\": \"ves-io-monitor-role\"\n        },\n        {\n            \"namespace\": \"system\",\n            \"role\": \"demo-sec-role\"\n        },\n        {\n            \"namespace\": \"system\",\n            \"role\": \"ves-io-monitor-role\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/web/custom/namespaces/system/user_roles",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"web",
+								"custom",
+								"namespaces",
+								"system",
+								"user_roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"namespace\": \"system\",\n    \"name\": \"name@domain.com\",\n    \"email\": \"name@domain.com\",\n    \"first_name\": \"First Second\",\n    \"last_name\": \"Last\",\n    \"type\": \"USER\",\n    \"idm_type\": \"VOLTERRA_MANAGED\",\n    \"namespace_roles\": [\n        {\n            \"namespace\": \"*\",\n            \"role\": \"ves-io-power-developer-role\"\n        },\n        {\n            \"namespace\": \"shared\",\n            \"role\": \"demo-sec-role\"\n        },\n        {\n            \"namespace\": \"shared\",\n            \"role\": \"ves-io-monitor-role\"\n        },\n        {\n            \"namespace\": \"system\",\n            \"role\": \"demo-sec-role\"\n        },\n        {\n            \"namespace\": \"system\",\n            \"role\": \"ves-io-monitor-role\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/web/custom/namespaces/system/user_roles",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"web",
+								"custom",
+								"namespaces",
+								"system",
+								"user_roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"name@domain.com\",\n    \"namespace\": \"system\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/web/custom/namespaces/system/users/cascade_delete",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"web",
+								"custom",
+								"namespaces",
+								"system",
+								"users",
+								"cascade_delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Namespaces",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/web/custom/namespaces/system/user_roles",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"web",
+								"custom",
+								"namespaces",
+								"system",
+								"user_roles"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Create Web Socket LB",
+			"item": [
+				{
+					"name": "Create Origin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"name\": \"ubuntu-websockets\",\n    \"namespace\": null,\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": null,\n    \"disable\": null\n  },\n  \"spec\": {\n    \"origin_servers\": [\n      {\n        \"labels\": null,\n        \"private_ip\": {\n          \"ip\": \"10.0.0.10\",\n          \"site_locator\": {\n            \"site\": {\n              \"tenant\": null,\n              \"namespace\": \"system\",\n              \"name\": \"aws-{{site-name}}\"\n            }\n          },\n          \"outside_network\": {}\n        }\n      }\n    ],\n    \"use_tls\": {\n      \"use_host_header_as_sni\": {},\n      \"tls_config\": {\n        \"default_security\": {}\n      },\n      \"skip_server_verification\": {},\n      \"no_mtls\": {}\n    },\n    \"port\": 443,\n    \"same_as_endpoint_port\": {},\n    \"healthcheck\": null,\n    \"loadbalancer_algorithm\": \"LB_OVERRIDE\",\n    \"endpoint_selection\": \"LOCAL_PREFERRED\",\n    \"advanced_options\": null\n  },\n  \"resource_version\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/origin_pools",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"origin_pools"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Routes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\n  \"metadata\": {\n    \"name\": \"ubunutu-websocket-2\",\n    \"namespace\": \"ubuntu-desktop\",\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": null,\n    \"disable\": null\n  },\n  \"spec\": {\n    \"routes\": [\n      {\n        \"match\": [\n          {\n            \"http_method\": \"ANY\",\n            \"path\": {\n              \"prefix\": \"/ws\"\n            },\n            \"query_params\": null,\n            \"headers\": null\n          }\n        ],\n        \"route_destination\": {\n          \"destinations\": [\n            {\n              \"cluster\": [\n                {\n                  \"kind\": \"cluster\",\n                  \"uid\": null,\n                  \"tenant\": null,\n                  \"namespace\": null,\n                  \"name\": \"ves-io-origin-pool-ubuntu-websockets\"\n                }\n              ],\n              \"weight\": 1,\n              \"endpoint_subsets\": {}\n            }\n          ],\n          \"timeout\": 3600,\n          \"retry_policy\": null,\n          \"prefix_rewrite\": null,\n          \"auto_host_rewrite\": null,\n          \"endpoint_subsets\": {},\n          \"mirror_policy\": null,\n          \"web_socket_config\": {\n            \"use_websocket\": true,\n            \"idle_timeout\": 0,\n            \"max_connect_attempts\": 0\n          },\n          \"buffer_policy\": null,\n          \"cors_policy\": null,\n          \"hash_policy\": null,\n          \"priority\": \"DEFAULT\",\n          \"spdy_config\": {\n            \"use_spdy\": null\n          },\n          \"do_not_retract_cluster\": {}\n        },\n        \"disable_location_add\": null,\n        \"service_policy\": null,\n        \"waf_type\": {\n          \"waf\": {\n            \"waf\": null\n          }\n        },\n        \"request_headers_to_add\": null,\n        \"request_headers_to_remove\": null,\n        \"response_headers_to_add\": null,\n        \"response_headers_to_remove\": null,\n        \"disable_custom_script\": null\n      }\n    ]\n  },\n  \"resource_version\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/routes",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"routes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create LB",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\n  \"metadata\": {\n    \"name\": \"ubuntu-desktop\",\n    \"namespace\": null,\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": null,\n    \"disable\": null\n  },\n  \"spec\": {\n    \"domains\": [\n      \"desk.{{domain}}\"\n    ],\n    \"https_auto_cert\": {\n      \"http_redirect\": null,\n      \"add_hsts\": null,\n      \"no_mtls\": {},\n      \"tls_config\": {\n        \"default_security\": {}\n      },\n      \"default_header\": {},\n      \"disable_path_normalize\": {}\n    },\n    \"advertise_on_public_default_vip\": {},\n    \"default_route_pools\": [\n      {\n        \"pool\": {\n          \"tenant\": null,\n          \"namespace\": null,\n          \"name\": \"ubuntu-websockets\"\n        },\n        \"weight\": 1,\n        \"endpoint_subsets\": {}\n      }\n    ],\n    \"routes\": [\n      {\n        \"custom_route_object\": {\n          \"route_ref\": {\n            \"tenant\": null,\n            \"namespace\": null,\n            \"name\": \"ubunutu-websocket\"\n          }\n        }\n      }\n    ],\n    \"cors_policy\": null,\n    \"disable_waf\": {},\n    \"add_location\": null,\n    \"no_challenge\": {},\n    \"more_option\": null,\n    \"user_identification\": null,\n    \"disable_rate_limit\": {},\n    \"malicious_user_mitigation\": null,\n    \"waf_exclusion_rules\": null,\n    \"blocked_clients\": null,\n    \"trusted_clients\": null,\n    \"ddos_mitigation_rules\": null,\n    \"no_service_policies\": {},\n    \"round_robin\": {},\n    \"multi_lb_app\": {}\n  },\n  \"resource_version\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/http_loadbalancers",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"http_loadbalancers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete Web Socket LB",
+			"item": [
+				{
+					"name": "Delete LB",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\n  \"metadata\": {\n    \"name\": \"ubuntu-desktop\",\n    \"namespace\": null,\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": null,\n    \"disable\": null\n  },\n  \"spec\": {\n    \"domains\": [\n      \"desk.{{domain}}\"\n    ],\n    \"https_auto_cert\": {\n      \"http_redirect\": null,\n      \"add_hsts\": null,\n      \"no_mtls\": {},\n      \"tls_config\": {\n        \"default_security\": {}\n      },\n      \"default_header\": {},\n      \"disable_path_normalize\": {}\n    },\n    \"advertise_on_public_default_vip\": {},\n    \"default_route_pools\": [\n      {\n        \"pool\": {\n          \"tenant\": null,\n          \"namespace\": null,\n          \"name\": \"ubuntu-websockets\"\n        },\n        \"weight\": 1,\n        \"endpoint_subsets\": {}\n      }\n    ],\n    \"routes\": [\n      {\n        \"custom_route_object\": {\n          \"route_ref\": {\n            \"tenant\": null,\n            \"namespace\": null,\n            \"name\": \"ubunutu-websocket\"\n          }\n        }\n      }\n    ],\n    \"cors_policy\": null,\n    \"disable_waf\": {},\n    \"add_location\": null,\n    \"no_challenge\": {},\n    \"more_option\": null,\n    \"user_identification\": null,\n    \"disable_rate_limit\": {},\n    \"malicious_user_mitigation\": null,\n    \"waf_exclusion_rules\": null,\n    \"blocked_clients\": null,\n    \"trusted_clients\": null,\n    \"ddos_mitigation_rules\": null,\n    \"no_service_policies\": {},\n    \"round_robin\": {},\n    \"multi_lb_app\": {}\n  },\n  \"resource_version\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/http_loadbalancers/ubuntu-desktop",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"http_loadbalancers",
+								"ubuntu-desktop"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Routes",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\n  \"metadata\": {\n    \"name\": \"ubunutu-websocket-2\",\n    \"namespace\": \"ubuntu-desktop\",\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": null,\n    \"disable\": null\n  },\n  \"spec\": {\n    \"routes\": [\n      {\n        \"match\": [\n          {\n            \"http_method\": \"ANY\",\n            \"path\": {\n              \"prefix\": \"/ws\"\n            },\n            \"query_params\": null,\n            \"headers\": null\n          }\n        ],\n        \"route_destination\": {\n          \"destinations\": [\n            {\n              \"cluster\": [\n                {\n                  \"kind\": \"cluster\",\n                  \"uid\": null,\n                  \"tenant\": null,\n                  \"namespace\": null,\n                  \"name\": \"ves-io-origin-pool-ubuntu-websockets\"\n                }\n              ],\n              \"weight\": 1,\n              \"endpoint_subsets\": {}\n            }\n          ],\n          \"timeout\": 3600,\n          \"retry_policy\": null,\n          \"prefix_rewrite\": null,\n          \"auto_host_rewrite\": null,\n          \"endpoint_subsets\": {},\n          \"mirror_policy\": null,\n          \"web_socket_config\": {\n            \"use_websocket\": true,\n            \"idle_timeout\": 0,\n            \"max_connect_attempts\": 0\n          },\n          \"buffer_policy\": null,\n          \"cors_policy\": null,\n          \"hash_policy\": null,\n          \"priority\": \"DEFAULT\",\n          \"spdy_config\": {\n            \"use_spdy\": null\n          },\n          \"do_not_retract_cluster\": {}\n        },\n        \"disable_location_add\": null,\n        \"service_policy\": null,\n        \"waf_type\": {\n          \"waf\": {\n            \"waf\": null\n          }\n        },\n        \"request_headers_to_add\": null,\n        \"request_headers_to_remove\": null,\n        \"response_headers_to_add\": null,\n        \"response_headers_to_remove\": null,\n        \"disable_custom_script\": null\n      }\n    ]\n  },\n  \"resource_version\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/routes/ubunutu-websocket-2",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"routes",
+								"ubunutu-websocket-2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Origin",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"name\": \"ubuntu-websockets\",\n    \"namespace\": null,\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": null,\n    \"disable\": null\n  },\n  \"spec\": {\n    \"origin_servers\": [\n      {\n        \"labels\": null,\n        \"private_ip\": {\n          \"ip\": \"10.0.0.10\",\n          \"site_locator\": {\n            \"site\": {\n              \"tenant\": null,\n              \"namespace\": \"system\",\n              \"name\": \"aws-{{site-name}}\"\n            }\n          },\n          \"outside_network\": {}\n        }\n      }\n    ],\n    \"use_tls\": {\n      \"use_host_header_as_sni\": {},\n      \"tls_config\": {\n        \"default_security\": {}\n      },\n      \"skip_server_verification\": {},\n      \"no_mtls\": {}\n    },\n    \"port\": 443,\n    \"same_as_endpoint_port\": {},\n    \"healthcheck\": null,\n    \"loadbalancer_algorithm\": \"LB_OVERRIDE\",\n    \"endpoint_selection\": \"LOCAL_PREFERRED\",\n    \"advanced_options\": null\n  },\n  \"resource_version\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/{{app-namespace}}/origin_pools/ubuntu-websockets",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"{{app-namespace}}",
+								"origin_pools",
+								"ubuntu-websockets"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Virtual Sites",
+			"item": [
+				{
+					"name": "Create Virtual Site",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"name\": \"arch-test\",\n    \"namespace\": null,\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": null,\n    \"disable\": null\n  },\n  \"spec\": {\n    \"site_type\": \"REGIONAL_EDGE\",\n    \"site_selector\": {\n      \"expressions\": [\n        \"ves.io/siteName in (ves-io-tn2-lon, ves-io-pa4-par, ves-io-pa2-par)\"\n      ]\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant}}.console.ves.volterra.io/api/config/namespaces/default/virtual_sites ",
+							"protocol": "https",
+							"host": [
+								"{{tenant}}",
+								"console",
+								"ves",
+								"volterra",
+								"io"
+							],
+							"path": [
+								"api",
+								"config",
+								"namespaces",
+								"default",
+								"virtual_sites "
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "APIToken {{api-token}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "Authorization",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "api-token",
+			"value": ""
+		},
+		{
+			"key": "app-namespace",
+			"value": ""
+		},
+		{
+			"key": "tenant",
+			"value": ""
+		},
+		{
+			"key": "domain",
+			"value": ""
+		},
+		{
+			"key": "site-name",
+			"value": ""
+		},
+		{
+			"key": "short-name",
+			"value": ""
+		},
+		{
+			"key": "name",
+			"value": ""
+		}
+	]
+}
